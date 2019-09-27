@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="AnimatedMenuTest.MainPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="DropDownImageSource" x:TypeArguments="FileImageSource">
+                <On Platform="iOS" Value="outline_arrow_drop_down_circle_white_24pt" />
+                <On Platform="Android" Value="outline_arrow_drop_down_circle_24.png" />
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="MenuButtoGrid"
+                  Grid.Column="1"
+                  BackgroundColor="Transparent"
+                  HorizontalOptions="CenterAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="ButtonTextLabel"
+                       Grid.Column="0"
+                       Margin="3,0"
+                       FontSize="Large"
+                       HorizontalOptions="EndAndExpand"
+                       LineBreakMode="NoWrap"
+                       Text="Show Menu"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+                <Image x:Name="ButtonImage"
+                       Grid.Column="1"
+                       Margin="3,0"
+                       Aspect="AspectFill"
+                       HorizontalOptions="StartAndExpand"
+                       Source="{StaticResource DropDownImageSource}"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+    </NavigationPage.TitleView>
+
+
+    <Grid x:Name="RootGrid"
+          ColumnSpacing="0"
+          RowSpacing="0">
+
+        <Grid x:Name="MainGrid">
+            <Label HorizontalOptions="Center"
+                   Text="Top Down Menu Test"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <StackLayout x:Name="ScrolledInView"
+                     BackgroundColor="White"
+                     IsClippedToBounds="True">
+            <Label Margin="6,6,6,3"
+                   FontSize="Subtitle"
+                   Text="Select option:"
+                    />
+            <CollectionView x:Name="MenuOptionsView"
+                            Margin="6,3,6,6"
+                            BackgroundColor="Transparent"
+                            ItemSizingStrategy="MeasureAllItems"
+                            SelectionChanged="CollectionView_SelectionChanged"
+                            SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Margin="6"
+                               FontSize="Title"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding .}"
+                                />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+
+
+
+    </Grid>
+
+</ContentPage>
